@@ -4,7 +4,7 @@
 	<meta charset="UTF-8">
 	<title>Friend Finder Survey</title>
 
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 	<script src="https://use.fontawesome.com/0f296b3a6c.js"></script>
 	<script src="https://code.jquery.com/jquery-3.2.1.min.js"  integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
   	crossorigin="anonymous"></script>
@@ -128,8 +128,12 @@
 
 		<br><br>
 
-		<button type="submit" class="btn btn-primary btn-lg btn-block" id="submit" style="width: 20%"><i class="fa fa-check-circle"> Find Your Match!</button>
 	</div>
+
+	<!-- Button trigger modal -->
+		<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+		  Let's see your BFF!
+		</button>
 
 	<footer class="footer">
       <div class="container">
@@ -138,74 +142,104 @@
     </footer>
 
 
-	<div id="resultsModal" class="modal fade" role="dialog">
-		<div class="modal-dialog">
-			<div class="modal-content">
-				<div class="modal-header">
-					<button type="button" class="close" data-dismiss="modal">&times;</button>
-					<h2 class="modal-title"><strong>Meet The Love of Your Life!</strong></h2>
-				</div>
-				<div class="modal-body">
-					<h2 id="matchName"></h2>
-					<img id="matchIMG" src="https://s3.amazonaws.com/filestore.rescuegroups.org/3699/pictures/animals/5263/5263305/47860504_500x595.jpg" alt="" style="max-width: 400px">
-				</div>
-				<div class="modal-footer">
-					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-				</div>
-			</div>
+	<!-- Modal -->
+	
+
+		<!-- Modal -->
+		<div class="modal fade" id="resultsModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+		  <div class="modal-dialog" role="document">
+		    <div class="modal-content">
+		      <div class="modal-header">
+		        <h5 class="modal-title" id="exampleModalLabel">I'm the Love of your Life</h5>
+		        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+		          <span aria-hidden="true">&times;</span>
+		        </button>
+		      </div>
+		      <div class="modal-body">
+		        ...
+		      </div>
+		      <div class="modal-footer">
+		        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+		      </div>
+		    </div>
+		  </div>
 		</div>
 
 
+<script type="text/javascript">
+	// Chosen CSS
+var config = {
+  '.chosen-select'           : {},
+  '.chosen-select-deselect'  : {allow_single_deselect:true},
+  '.chosen-select-no-single' : {disable_search_threshold:10},
+  '.chosen-select-no-results': {no_results_text:'Oops, nothing found!'},
+  '.chosen-select-width'     : {width:"95%"}
+}
+
+for (var selector in config) {
+  	$(selector).chosen(config[selector]);
+}
+
+// Capture the form inputs
+$("#submit").on("click", function(){
+
+	// Form validation
+	function validateForm() {
+		var isValid = true;
+		$('.form-control').each(function() {
+			if ( $(this).val() === '' )
+		    	isValid = false;
+		});
+
+		$('.chosen-select').each(function() {
+		  	if( $(this).val() === "")
+		  		isValid = false
+		});
+
+	  	return isValid;
+	}
+
+	// If all required fields are filled
+	if (validateForm())
+	{
+		// Create an object for the user's data
+    	var userInput = {
+    		name: $("#name").val(),
+    		photo: $("#photo").val(),
+    		scores: [$("#q1").val(), $("#q2").val(), $("#q3").val(), $("#q4").val(), $("#q5").val(), $("#q6").val(), $("#q7").val(), $("#q8").val(), $("#q9").val(), $("#q10").val(), ]
+    	}
+
+
+    	// Grab the URL of the website
+    	var currentURL = window.location.origin;
+
+    	// AJAX post the data to the friends API.
+    	$.post(currentURL + "/api/friends", userInput, function(data){
+
+    		// Grab the result from the AJAX post so that the best match's name and photo are displayed.
+    		$("#matchName").text(data.name);
+    		$('#matchImg').attr("src", data.photo);
+
+	    	// Show the modal with the best match
+	    	$("#resultsModal").modal('toggle');
+
+    	});
+	}
+	else
+	{
+		alert("Please fill out all fields before submitting!");
+	}
+
+	return false;
+});
+
+$('#resultsModal').on('hidden.bs.modal', function () {
+  window.location.reload(true);
+});
+
+	
+</script>
 
 </body>
-
-<script type="text/javascript">
-	var config = {
-		'.chosen-select': {},
-		'.chosen-select-deselect': {allow_single_deselect: true},
-		'.chosen-select-no-single': {disable_search_threshold: 10},
-		'.chosen-select-no-results': {no_resuts_text: 'Could not find what you are looking for'},
-		'.chosen-select-width': {width: 95},
-	}
-
-	for (var selector in config) {
-		$(selector).chosen(config[selector]);
-	}
-
-	$('#submit').on("click", function(){
-		function validateForm() {
-			var isTrue = true;
-			$('.form-control').each(function(){
-				if($(this).val() === '')
-					isTrue = false;
-			});
-			$('.chosen-select').each(function(){
-					if($(this).val() === "")
-						isTrue = false
-			});
-			return isTrue;
-		}
-		if (validateForm() == true) {
-			var userData = {
-				name: $("#name").val(),
-				photo: $("#photo").val(),
-				scores: [$("#q1").val(), $("#q2").val(), $("#q3").val(), $("#q4").val(), $("#q5").val(), $("#q6").val(), $("#q7").val(), $("#q8").val(), $("#q9").val(), $("#q10").val()]
-			}
-
-		var currentURL = window.location.origin;
-
-		$.post(currentURL + "/api/friends", userData, function(data){
-			$("#matchName").text(data.name);
-			$("#matchIMG").attr("src", data.photo);
-			$("#resultsModal").modal('toggle');
-		});
-		}
-		else {
-			alert("Complete all fields before submitting, thanks!");
-		}
-		return false;
-	});
-
-</script>
 
 </html>
