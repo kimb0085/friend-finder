@@ -27,7 +27,7 @@
 	
 	
 		<h3>Question 1: Citrus is the best</h3>
-		<select data-placeholder="" class="chosen-select" id="q1">
+		<select data-placeholder="" class="validate" id="q1">
 			<option value=""></option>
 			<option value="5">5 (Strongly Agree)</option>
 			<option value="4">4</option>
@@ -37,7 +37,7 @@
 		</select>
 
 		<h3>Question 2: Red heads are the cutest</h3>
-		<select data-placeholder="" class="chosen-select" id="q1">
+		<select data-placeholder="" class="validate" id="q2">
 			<option value=""></option>
 			<option value="5">5 (Strongly Agree)</option>
 			<option value="4">4</option>
@@ -47,7 +47,7 @@
 		</select>
 
 		<h3>Question 3: I like 'em smiling ear to ear</h3>
-		<select data-placeholder="" class="chosen-select" id="q1">
+		<select data-placeholder="" class="validate" id="q3">
 			<option value=""></option>
 			<option value="5">5 (Strongly Agree)</option>
 			<option value="4">4</option>
@@ -57,7 +57,7 @@
 		</select>
 
 		<h3>Question 4: I like 'em looking a bit more skeptical</h3>
-		<select data-placeholder="" class="chosen-select" id="q1">
+		<select data-placeholder="" class="validate" id="q4">
 			<option value=""></option>
 			<option value="5">5 (Strongly Agree)</option>
 			<option value="4">4</option>
@@ -67,7 +67,7 @@
 		</select>
 
 			<h3>Question 5: Looking for someone to get active with</h3>
-		<select data-placeholder="" class="chosen-select" id="q1">
+		<select data-placeholder="" class="validate" id="q5">
 			<option value=""></option>
 			<option value="5">5 (Strongly Agree)</option>
 			<option value="4">4</option>
@@ -77,7 +77,7 @@
 		</select>
 
 		<h3>Question 6: Nothing but snuggling for me, please</h3>
-		<select data-placeholder="" class="chosen-select" id="q1">
+		<select data-placeholder="" class="validate" id="q6">
 			<option value=""></option>
 			<option value="5">5 (Strongly Agree)</option>
 			<option value="4">4</option>
@@ -87,7 +87,7 @@
 		</select>
 
 		<h3>Question 7: Looking for someone with a thick mane</h3>
-		<select data-placeholder="" class="chosen-select" id="q1">
+		<select data-placeholder="" class="validate" id="q7">
 			<option value=""></option>
 			<option value="5">5 (Strongly Agree)</option>
 			<option value="4">4</option>
@@ -97,7 +97,7 @@
 		</select>
 
 		<h3>Question 8: Looking for a sharp dresser</h3>
-		<select data-placeholder="" class="chosen-select" id="q1">
+		<select data-placeholder="" class="validate" id="q8">
 			<option value=""></option>
 			<option value="5">5 (Strongly Agree)</option>
 			<option value="4">4</option>
@@ -107,7 +107,7 @@
 		</select>
 
 		<h3>Question 9: I love to share food</h3>
-		<select data-placeholder="" class="chosen-select" id="q1">
+		<select data-placeholder="" class="validate" id="q9">
 			<option value=""></option>
 			<option value="5">5 (Strongly Agree)</option>
 			<option value="4">4</option>
@@ -117,7 +117,7 @@
 		</select>
 
 		<h3>Question 10: I love to share my bed</h3>
-		<select data-placeholder="" class="chosen-select" id="q1">
+		<select data-placeholder="" class="validate" id="q10">
 			<option value=""></option>
 			<option value="5">5 (Strongly Agree)</option>
 			<option value="4">4</option>
@@ -131,7 +131,7 @@
 	</div>
 
 	<!-- Button trigger modal -->
-		<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+		<button type="button" id="submit" class="btn btn-primary" data-toggle="modal" data-target="#resulsModal">
 		  Let's see your BFF!
 		</button>
 
@@ -156,10 +156,11 @@
 		        </button>
 		      </div>
 		      <div class="modal-body">
-		        ...
+		        <h2 id="matchName"></h2>
+		        <img id="matchImg" src="/images/remi">
 		      </div>
 		      <div class="modal-footer">
-		        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+		        <button type="button" class="btn btn-secondary" data-dismiss="modal">Yup! So right!</button>
 		      </div>
 		    </div>
 		  </div>
@@ -167,75 +168,142 @@
 
 
 <script type="text/javascript">
-	// Chosen CSS
-var config = {
-  '.chosen-select'           : {},
-  '.chosen-select-deselect'  : {allow_single_deselect:true},
-  '.chosen-select-no-single' : {disable_search_threshold:10},
-  '.chosen-select-no-results': {no_results_text:'Oops, nothing found!'},
-  '.chosen-select-width'     : {width:"95%"}
-}
+//Listener for submit
+$("#submit").on("click", function(event){
+	event.preventDefault();
 
-for (var selector in config) {
-  	$(selector).chosen(config[selector]);
-}
+	var matchName = $("#matchName");
+	var matchImg = $("#matchImg");
 
-// Capture the form inputs
-$("#submit").on("click", function(){
+	var name = $("#name").val().trim();
+	var q1 = parseInt($("#q1").val());
+	var q2 = parseInt($("#q2").val());
+	var q3 = parseInt($("#q3").val());
+	var q4 = parseInt($("#q4").val());
+	var q5 = parseInt($("#q5").val());
+	var q6 = parseInt($("#q6").val());
+	var q7 = parseInt($("#q7").val());
+	var q8 = parseInt($("#q8").val());
+	var q9 = parseInt($("#q9").val());
+	var q10 = parseInt($("#q10").val());
 
-	// Form validation
-	function validateForm() {
-		var isValid = true;
-		$('.form-control').each(function() {
-			if ( $(this).val() === '' )
-		    	isValid = false;
+	//info to be sent to the server
+	var userInput = {
+		name: name,
+		scores: [
+			q1,
+			q2,
+			q3,
+			q4,
+			q5,
+			q6,
+			q7,
+			q8,
+			q9,
+			q10
+		]
+	};
+	//check if responses are valid
+	if (
+		(name !== "") && (!isNaN(q1)) && (!isNaN(q2)) && (!isNaN(q3)) && (!isNaN(q4)) && (!isNaN(q5)) && (!isNaN(q6)) && (!isNaN(q7)) && (!isNaN(q8)) && (!isNaN(q9)) && (!isNaN(q10))
+
+		) {
+		//identify the URL
+		var currentURL = window.location.origin;
+
+		//AJAX calls
+		$.post(currentURL + "/api/friends", userInput, function(data){
+			//data matches!
+			if (data.name !== undefined) {
+				matchName.html("Your match is: ");
+				matchImg.attr("src", data.photo);
+			}
+			//show modal
+			$("#resultsModal").modal("toggle");
 		});
-
-		$('.chosen-select').each(function() {
-		  	if( $(this).val() === "")
-		  		isValid = false
-		});
-
-	  	return isValid;
+	} else {
+		//form is not valid
+		matchName.html("Error");
+		matchImg.html("You must answer all of the questions to show your match");
+		//show modal
+		$("#resultsModal").modal("toggle");
 	}
-
-	// If all required fields are filled
-	if (validateForm())
-	{
-		// Create an object for the user's data
-    	var userInput = {
-    		name: $("#name").val(),
-    		photo: $("#photo").val(),
-    		scores: [$("#q1").val(), $("#q2").val(), $("#q3").val(), $("#q4").val(), $("#q5").val(), $("#q6").val(), $("#q7").val(), $("#q8").val(), $("#q9").val(), $("#q10").val(), ]
-    	}
-
-
-    	// Grab the URL of the website
-    	var currentURL = window.location.origin;
-
-    	// AJAX post the data to the friends API.
-    	$.post(currentURL + "/api/friends", userInput, function(data){
-
-    		// Grab the result from the AJAX post so that the best match's name and photo are displayed.
-    		$("#matchName").text(data.name);
-    		$('#matchImg').attr("src", data.photo);
-
-	    	// Show the modal with the best match
-	    	$("#resultsModal").modal('toggle');
-
-    	});
-	}
-	else
-	{
-		alert("Please fill out all fields before submitting!");
-	}
-
-	return false;
 });
 
-$('#resultsModal').on('hidden.bs.modal', function () {
-  window.location.reload(true);
-});
+$(".form-group").reset();
+	
+// Chosen CSS
+// var config = {
+//   '.chosen-select': {},
+//   '.chosen-select-deselect': {allow_single_deselect:true},
+//   '.chosen-select-no-single': {disable_search_threshold: 10},
+//   '.chosen-select-no-results': {no_results_text:'Results not available!'},
+//   '.chosen-select-width': {width:"95%"}
+// }
+
+// for (var selector in config) {
+//   	$(selector).chosen(config[selector]);
+// }
+
+// // Capture the form inputs
+// $("#submit").on("click", function(){
+
+// 	// Form validation
+// 	function validateForm() {
+// 		var valid = true;
+// 		$('.#name').each(function() {
+// 			if ($(this).val() === ""){
+// 		    	valid = false;
+// 			}
+// 		});
+
+// 		$('.validate').each(function() {
+// 		  	if( $(this).val() === ""){
+// 		  		valid = false
+// 		  	}
+// 		});
+
+// 	  	return valid;
+// 	}
+
+// 	// If all required fields are filled
+// 	if (validateForm())
+// 	{
+// 		// Create an object for the user's data
+//     	var userInput = {
+//     		name: $("#name").val(),
+//     		// photo: $("#photo").val(),
+//     		scores: [$("#q1").val(), $("#q2").val(), $("#q3").val(), $("#q4").val(), $("#q5").val(), $("#q6").val(), $("#q7").val(), $("#q8").val(), $("#q9").val(), $("#q10").val()]
+//     	}
+
+
+//     	// Grab the URL of the website
+//     	var currentURL = window.location.origin;
+
+//     	// AJAX post the data to the friends API.
+//     	$.post(currentURL + "/api/friends", userInput, function(data){
+
+//     		// Grab the result from the AJAX post so that the best match's name and photo are displayed.
+//     		$("#matchName").text(data.name);
+//     		$('#matchImg').attr("src", data.photo);
+
+// 	    	// Show the modal with the best match
+// 	    	$("#resultsModal").modal("toggle");
+// 	    	alert("working!");
+
+//     	});
+// 	}
+// 	else
+// 	{
+// 		alert("Please fill out all fields before submitting!");
+// 	}
+
+// 	return false;
+// });
+
+// $('#resultsModal').on('hidden.bs.modal', function () {
+//   window.location.reload(true);
+// });
 
 	
 </script>
