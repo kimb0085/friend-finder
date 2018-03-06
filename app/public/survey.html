@@ -4,18 +4,19 @@
 	<meta charset="UTF-8">
 	<title>Friend Finder Survey</title>
 
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+	<!-- Latest compiled and minified CSS & JS -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+	<script src="https://code.jquery.com/jquery.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
 
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-	<script src="https://use.fontawesome.com/0f296b3a6c.js"></script>
-	<script src="https://code.jquery.com/jquery-3.2.1.min.js"  integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
-  	crossorigin="anonymous"></script>
+	<!-- Font Awesome Glyphicons -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.1/css/font-awesome.min.css">
 
-  	<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
-  
+	<!-- Chosen -->
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/chosen/1.5.1/chosen.css">
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/chosen/1.5.1/chosen.jquery.min.js"></script>
+
+
 </head>
 <body>
 	<div class="container">
@@ -134,134 +135,99 @@
 		<br><br>
 
 	</div>
+
+	<!-- Submit Button -->
+		<button type="submit" class="btn btn-primary btn-lg btn-block" id="submit"><i class="fa fa-check-circle" aria-hidden="true"></i> Let's see your BFF!</button>
 	
-	<!-- Button trigger modal -->
-	<button id="submit" type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
-	  Let's see your BFF!
-	</button>
+	
+	<br><br>
+
+	<footer class="footer">
+	    <div class="container">
+	       <p><a href="/home">Friend Finder</a></p>
+	    </div>
+    </footer>
 
 	<!-- Modal -->
-	<div class="modal fade" id="resultsModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-	  <div class="modal-dialog" role="document">
+	<div id="resultsModal" class="modal fade" role="dialog">
+	  <div class="modal-dialog">
+
+	    <!-- Modal content-->
 	    <div class="modal-content">
 	      <div class="modal-header">
-	        <h5 class="modal-title" id="exampleModalLabel">I'm the Love of your Life</h5>
-	        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-	          <span aria-hidden="true">&times;</span>
-	        </button>
+	        <button type="button" class="close" data-dismiss="modal">&times;</button>
+	        <h2 class="modal-title"><strong>Here is the love of your life: </strong></h2>
 	      </div>
 	      <div class="modal-body">
-	        ...
+	        <h2 id="matchName">Remi</h2>
+	        <img id="matchImg" src="/images/remi.jpg">
 	      </div>
 	      <div class="modal-footer">
-	        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-	        <button type="button" class="btn btn-primary">Save changes</button>
+	        <button type="button" class="btn btn-default" data-dismiss="modal">Yup! So right!</button>
 	      </div>
 	    </div>
+
 	  </div>
 	</div>
 
-	<!-- Modal -->
-	<!-- Button trigger modal -->
-		<!-- <button type="button" id="submit" class="btn btn-primary" data-toggle="modal" data-target="#resulsModal">
-		  Let's see your BFF!
-		</button> -->	
-
-		<!-- Modal -->
-		<!-- <div class="modal fade" id="resultsModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-		  <div class="modal-dialog" role="document">
-		    <div class="modal-content">
-		      <div class="modal-header">
-		        <h5 class="modal-title" id="exampleModalLabel">I'm the Love of your Life</h5>
-		        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-		          <span aria-hidden="true">&times;</span>
-		        </button>
-		      </div>
-		      <div class="modal-body">
-		        <h2 id="matchName"></h2>
-		        <img id="matchImg" src="/images/remi">
-		      </div>
-		      <div class="modal-footer">
-		        <button type="button" class="btn btn-secondary" data-dismiss="modal">Yup! So right!</button>
-		      </div>
-		    </div>
-		  </div>
-		</div> -->
-
-		<footer class="footer">
-	      <div class="container">
-	        <p><a href="/home">Friend Finder</a></p>
-	      </div>
-    	</footer>
-
 
 <script type="text/javascript">
-//Listener for submit
-$(function(){
-	$("#submit").on("click", function(event){
-		event.preventDefault();
 
-		var matchName = $("#matchName");
-		var matchImg = $("#matchImg");
-
-		var name = $("#name").val().trim();
-		var q1 = parseInt($("#q1").val());
-		var q2 = parseInt($("#q2").val());
-		var q3 = parseInt($("#q3").val());
-		var q4 = parseInt($("#q4").val());
-		var q5 = parseInt($("#q5").val());
-		var q6 = parseInt($("#q6").val());
-		var q7 = parseInt($("#q7").val());
-		var q8 = parseInt($("#q8").val());
-		var q9 = parseInt($("#q9").val());
-		var q10 = parseInt($("#q10").val());
-
-		//info to be sent to the server
-		var userInput = {
-			name: name,
-			scores: [
-				q1,
-				q2,
-				q3,
-				q4,
-				q5,
-				q6,
-				q7,
-				q8,
-				q9,
-				q10
-			]
-		};
-		//check if responses are valid
-		if (
-			(name !== "") && (!isNaN(q1)) && (!isNaN(q2)) && (!isNaN(q3)) && (!isNaN(q4)) && (!isNaN(q5)) && (!isNaN(q6)) && (!isNaN(q7)) && (!isNaN(q8)) && (!isNaN(q9)) && (!isNaN(q10))
-
-			) {
-			//identify the URL
-			var currentURL = window.location.origin;
-
-			//AJAX calls
-			$.post(currentURL + "/api/friends", userInput, function(data){
-				//data matches!
-				if (data.name !== undefined) {
-					matchName.html("Your match is: ");
-					matchImg.attr("src", data.photo);
-				}
-				//show modal
-				$("#resultsModal").modal("toggle");
-			});
-		} else {
-			//form is not valid
-			matchName.html("Error");
-			matchImg.html("You must answer all of the questions to show your match");
-			//show modal
-			$("#resultsModal").modal("toggle");
+  	// Chosen CSS
+    var config = {
+      '.chosen-select'           : {},
+      '.chosen-select-deselect'  : {allow_single_deselect:true},
+      '.chosen-select-no-single' : {disable_search_threshold:10},
+      '.chosen-select-no-results': {no_results_text:'Oops, nothing found!'},
+      '.chosen-select-width'     : {width:"95%"}
+    }
+    for (var selector in config) {
+      $(selector).chosen(config[selector]);
+    }
+    // Capture the form inputs 
+    $("#submit").on("click", function(){
+    	// Form validation
+    	function validateForm() {
+		  var isValid = true;
+		  $('.form-control').each(function() {
+		    if ( $(this).val() === '' )
+		        isValid = false;
+		  });
+		  $('.chosen-select').each(function() {
+		  	if( $(this).val() === "")
+		  		isValid = false
+		  })
+		  return isValid;
 		}
-	});
-});
+		// If all required fields are filled
+		if (validateForm() == true)
+		{
+			// Create an object for the user's data
+	    	var userData = {
+	    		name: $("#name").val(),
+	    		// photo: $("#photo").val(),
+	    		scores: [$("#q1").val(), $("#q2").val(), $("#q3").val(), $("#q4").val(), $("#q5").val(), $("#q6").val(), $("#q7").val(), $("#q8").val(), $("#q9").val(), $("#q10").val(), ]
+	    	}
+	    	// Grab the URL of the website
+	    	var currentURL = window.location.origin;
+	    	// AJAX post the data to the friends API. 
+	    	$.post(currentURL + "/api/friends", userData, function(data){
+	    		// Grab the result from the AJAX post so that the best match's name and photo are displayed.
+	    		$("#matchName").text(data.name);
+	    		$('#matchImg').attr("src", data.photo);
+		    	// Show the modal with the best match 
+		    	$("#resultsModal").modal('toggle');
+	    	});
+		}
+		else
+		{
+			alert("We can't assign your bff until you fill out all the required fields! Please, and thank you!");
+		}
+    	
+    	return false;
+    });
 
-$(".form-group").reset();
-	
+		
 </script>
 
 </body>
