@@ -5,9 +5,15 @@
 	<title>Friend Finder Survey</title>
 
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 	<script src="https://use.fontawesome.com/0f296b3a6c.js"></script>
 	<script src="https://code.jquery.com/jquery-3.2.1.min.js"  integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
   	crossorigin="anonymous"></script>
+
+  	<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
   
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/chosen/1.5.1/chosen.jquery.min.js"></script>
 </head>
@@ -128,24 +134,41 @@
 		<br><br>
 
 	</div>
-
+	
 	<!-- Button trigger modal -->
-		<button type="button" id="submit" class="btn btn-primary" data-toggle="modal" data-target="#resulsModal">
-		  Let's see your BFF!
-		</button>
-
-	<footer class="footer">
-      <div class="container">
-        <p><a href="/home">Friend Finder</a></p>
-      </div>
-    </footer>
-
+	<button id="submit" type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+	  Let's see your BFF!
+	</button>
 
 	<!-- Modal -->
-	
+	<div class="modal fade" id="resultsModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+	  <div class="modal-dialog" role="document">
+	    <div class="modal-content">
+	      <div class="modal-header">
+	        <h5 class="modal-title" id="exampleModalLabel">I'm the Love of your Life</h5>
+	        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+	          <span aria-hidden="true">&times;</span>
+	        </button>
+	      </div>
+	      <div class="modal-body">
+	        ...
+	      </div>
+	      <div class="modal-footer">
+	        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+	        <button type="button" class="btn btn-primary">Save changes</button>
+	      </div>
+	    </div>
+	  </div>
+	</div>
+
+	<!-- Modal -->
+	<!-- Button trigger modal -->
+		<!-- <button type="button" id="submit" class="btn btn-primary" data-toggle="modal" data-target="#resulsModal">
+		  Let's see your BFF!
+		</button> -->	
 
 		<!-- Modal -->
-		<div class="modal fade" id="resultsModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+		<!-- <div class="modal fade" id="resultsModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
 		  <div class="modal-dialog" role="document">
 		    <div class="modal-content">
 		      <div class="modal-header">
@@ -163,70 +186,78 @@
 		      </div>
 		    </div>
 		  </div>
-		</div>
+		</div> -->
+
+		<footer class="footer">
+	      <div class="container">
+	        <p><a href="/home">Friend Finder</a></p>
+	      </div>
+    	</footer>
 
 
 <script type="text/javascript">
 //Listener for submit
-$("#submit").on("click", function(event){
-	event.preventDefault();
+$(function(){
+	$("#submit").on("click", function(event){
+		event.preventDefault();
 
-	var matchName = $("#matchName");
-	var matchImg = $("#matchImg");
+		var matchName = $("#matchName");
+		var matchImg = $("#matchImg");
 
-	var name = $("#name").val().trim();
-	var q1 = parseInt($("#q1").val());
-	var q2 = parseInt($("#q2").val());
-	var q3 = parseInt($("#q3").val());
-	var q4 = parseInt($("#q4").val());
-	var q5 = parseInt($("#q5").val());
-	var q6 = parseInt($("#q6").val());
-	var q7 = parseInt($("#q7").val());
-	var q8 = parseInt($("#q8").val());
-	var q9 = parseInt($("#q9").val());
-	var q10 = parseInt($("#q10").val());
+		var name = $("#name").val().trim();
+		var q1 = parseInt($("#q1").val());
+		var q2 = parseInt($("#q2").val());
+		var q3 = parseInt($("#q3").val());
+		var q4 = parseInt($("#q4").val());
+		var q5 = parseInt($("#q5").val());
+		var q6 = parseInt($("#q6").val());
+		var q7 = parseInt($("#q7").val());
+		var q8 = parseInt($("#q8").val());
+		var q9 = parseInt($("#q9").val());
+		var q10 = parseInt($("#q10").val());
 
-	//info to be sent to the server
-	var userInput = {
-		name: name,
-		scores: [
-			q1,
-			q2,
-			q3,
-			q4,
-			q5,
-			q6,
-			q7,
-			q8,
-			q9,
-			q10
-		]
-	};
-	//check if responses are valid
-	if (
-		(name !== "") && (!isNaN(q1)) && (!isNaN(q2)) && (!isNaN(q3)) && (!isNaN(q4)) && (!isNaN(q5)) && (!isNaN(q6)) && (!isNaN(q7)) && (!isNaN(q8)) && (!isNaN(q9)) && (!isNaN(q10))
+		//info to be sent to the server
+		var userInput = {
+			name: name,
+			scores: [
+				q1,
+				q2,
+				q3,
+				q4,
+				q5,
+				q6,
+				q7,
+				q8,
+				q9,
+				q10
+			]
+		};
+		//check if responses are valid
+		if (
+			(name !== "") && (!isNaN(q1)) && (!isNaN(q2)) && (!isNaN(q3)) && (!isNaN(q4)) && (!isNaN(q5)) && (!isNaN(q6)) && (!isNaN(q7)) && (!isNaN(q8)) && (!isNaN(q9)) && (!isNaN(q10))
 
-		) {
-		//identify the URL
-		var currentURL = window.location.origin;
+			) {
+			//identify the URL
+			var currentURL = window.location.origin;
 
-		//AJAX calls
-		$.post(currentURL + "/api/friends", userInput, function(data){
-			//data matches!
-			if (data.name !== undefined) {
-				matchName.html("Your match is: ");
-				matchImg.attr("src", data.photo);
-			}
+			//AJAX calls
+			$.post(currentURL + "/api/friends", userInput, function(data){
+				//data matches!
+				if (data.name !== undefined) {
+					matchName.html("Your match is: ");
+					matchImg.attr("src", data.photo);
+				}
+				//show modal
+				$("#resultsModal").modal("toggle");
+			});
+		} else {
+			//form is not valid
+			matchName.html("Error");
+			matchImg.html("You must answer all of the questions to show your match");
 			//show modal
 			$("#resultsModal").modal("toggle");
-		});
-	} else {
-		//form is not valid
-		matchName.html("Error");
-		matchImg.html("You must answer all of the questions to show your match");
-		//show modal
-		$("#resultsModal").modal("toggle");
-	}
+		}
+	});
 });
 
 $(".form-group").reset();
